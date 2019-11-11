@@ -24,3 +24,52 @@ sudo apt-get install --no-install-recommends \
     libcudnn7=7.6.2.24-1+cuda10.0  \
     libcudnn7-dev=7.6.2.24-1+cuda10.0
 
+
+#Retiene los paquetes, para que no sean actualizadas posteriormente.
+
+sudo apt-mark hold cuda-10-0
+sudo apt-mark hold libcudnn7
+sudo apt-mark hold libcudnn7-dev
+
+#Instalar TensorRT. (Requiere que libcudnn7)
+sudo apt-get install -y --no-install-recommends libnvinfer5=5.1.5-1+cuda10.0 \
+    libnvinfer-dev=5.1.5-1+cuda10.0
+
+
+
+#Creamos Ambiente Virtual 
+pip install virtualenv
+virtualenv tf --python=python3
+cd tf/
+#Activamos ambiente virtual
+source bin/activate
+
+#Evaluar, si no existe la ruta
+echo LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+
+#Reevaluar la ruta
+echo LD_LIBRARY_PATH
+
+#Ir a la carpeta madre
+cd
+nano .bashrc
+#Al final del archivo pegar lo siguiente:
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+
+
+#Para finalizar Instalamos TensorFlow 
+pip install tensorflow-gpu
+
+#Verificar instalacion
+python
+import tensorflow
+#Deberia poder importar la libreria sin errores
+
+
+
+#-----Comandos de interes-----
+#verificar el proceso python en la GPU
+watch nvidia-smi
+
