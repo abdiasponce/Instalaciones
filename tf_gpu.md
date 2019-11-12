@@ -72,4 +72,3 @@ import tensorflow
 #-----Comandos de interes-----
 #verificar el proceso python en la GPU
 watch nvidia-smi
-
